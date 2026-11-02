@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Extinct in the Wild species explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="ew-app">
+  <nav class="ew-nav" aria-label="Sections">
+    <button class="ew-tab" data-tab="overview">Overview</button>
+    <button class="ew-tab" data-tab="species">Species</button>
+    <button class="ew-tab" data-tab="analytics">Analytics</button>
+    <button class="ew-tab" data-tab="detail" id="tab-detail-btn" hidden>Species detail</button>
+    <span class="ew-spacer"></span>
+    <a class="ew-link" id="iucn-link" target="_blank" rel="noopener">IUCN Red List &#8599;</a>
+  </nav>
+
+  <div id="ew-notice" class="ew-notice" hidden></div>
+  <div id="ew-loading" class="ew-loading">Loading species data&hellip;</div>
+
+  <main id="ew-main" hidden>
+    <section class="ew-panel" id="panel-overview">
+      <div class="ew-hero">
+        <div class="ew-eyebrow">IUCN Red List &middot; Category EW</div>
+        <h1 id="hero-title">Extinct-in-the-Wild species</h1>
+        <p>Species that survive only under human care.</p>
+      </div>
+      <div id="stat-cards" class="ew-cards"></div>
+      <div class="ew-card">
+        <div class="ew-card-head">
+          <span>Explore the species</span>
+          <div class="ew-subtabs" role="tablist">
+            <button class="ew-subtab" data-sub="map">World map</button>
+            <button class="ew-subtab" data-sub="sunburst">Sunburst</button>
+            <button class="ew-subtab" data-sub="find">Find a species</button>
+          </div>
+        </div>
+        <div class="ew-card-body">
+          <div class="ew-subpanel" id="sub-map">
+            <p class="ew-muted">Species counts by country of origin. Click a country to list its Extinct-in-the-Wild species.</p>
+            <div id="map-pills" class="ew-pills"></div>
+            <div class="ew-layout ew-layout-wide">
+              <aside class="ew-side">
+                <h3>Country</h3>
+                <label class="ew-label" for="map-country">Choose a country</label>
+                <select id="map-country" class="ew-input"></select>
+                <p class="ew-muted ew-small">Click a country on the map or pick one here to list its species. Click a species to open its page.</p>
+                <div id="map-species"></div>
+              </aside>
+              <div class="ew-card">
+                <div class="ew-card-head"><span id="map-title"></span></div>
+                <div class="ew-card-body"><div id="map" class="ew-plot" style="height:560px"></div></div>
+              </div>
+            </div>
+          </div>
+          <div class="ew-subpanel" id="sub-sunburst">
+            <p class="ew-muted">The same hierarchy as concentric rings: groups in the centre, species on the outside. Click a wedge to focus on it.</p>
+            <div id="sunburst" class="ew-plot" style="height:640px"></div>
+          </div>
+          <div class="ew-subpanel" id="sub-find">
+            <div class="ew-split">
+              <div>
+                <label class="ew-label" for="find-input">Search for a species</label>
+                <input id="find-input" class="ew-input" list="find-list" placeholder="Type a common or scientific name&hellip;" autocomplete="off">
+                <datalist id="find-list"></datalist>
+                <div id="find-facts"></div>
+              </div>
+              <div id="find-lineage"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ew-panel" id="panel-species">
+      <h2 class="ew-title">Browse the species</h2>
+      <p class="ew-muted">Search and filter every Extinct-in-the-Wild species. Select a row to open its full dashboard.</p>
+      <div class="ew-layout">
+        <aside class="ew-side">
+          <h3>Filter</h3>
+          <label class="ew-label" for="f-group">Animal / plant group</label><select id="f-group" class="ew-input"></select>
+          <label class="ew-label" for="f-class">Taxonomic class</label><select id="f-class" class="ew-input"></select>
+          <label class="ew-label" for="f-realm">Realm</label><select id="f-realm" class="ew-input"></select>
+          <label class="ew-label" for="f-system">System</label><select id="f-system" class="ew-input"></select>
+          <label class="ew-label" for="f-country">Country</label><select id="f-country" class="ew-input"></select>
+          <label class="ew-label" for="f-search">Search name</label>
+          <input id="f-search" class="ew-input" placeholder="e.g. cyprinodon">
+          <button class="ew-btn ew-btn-sm" id="f-reset" style="margin-top:.9rem">Reset filters</button>
+        </aside>
+        <div class="ew-card">
+          <div class="ew-card-head"><span id="grid-count"></span></div>
+          <div class="ew-table-wrap"><table class="ew-table" id="grid"></table></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="ew-panel" id="panel-analytics">
+      <h2 class="ew-title">Analytics</h2>
+      <p class="ew-muted">How the Extinct-in-the-Wild species break down across groups, taxonomy, biogeographic realms and systems.</p>
+      <div class="ew-grid2">
+        <div class="ew-card"><div class="ew-card-head"><span>Species by group</span></div><div class="ew-card-body"><div id="ch-group" class="ew-plot" style="height:320px"></div></div></div>
+        <div class="ew-card"><div class="ew-card-head"><span>Species by taxonomic class</span></div><div class="ew-card-body"><div id="ch-class" class="ew-plot" style="height:320px"></div></div></div>
+        <div class="ew-card"><div class="ew-card-head"><span>Species by realm</span></div><div class="ew-card-body"><div id="ch-realm" class="ew-plot" style="height:320px"></div></div></div>
+        <div class="ew-card"><div class="ew-card-head"><span>Species by system</span></div><div class="ew-card-body"><div id="ch-system" class="ew-plot" style="height:320px"></div></div></div>
+      </div>
+      <div class="ew-card" id="card-year" style="margin-top:1rem"><div class="ew-card-head"><span>EW assessments published per year</span></div><div class="ew-card-body"><div id="ch-year" class="ew-plot" style="height:320px"></div></div></div>
+    </section>
+
+    <section class="ew-panel" id="panel-detail"><div id="detail"></div></section>
+
+    <section class="ew-panel" id="panel-check">
+      <h2 class="ew-title">Data check</h2>
+      <p class="ew-muted">Quick quality report on the loaded spreadsheet. Open this page with <code>#check</code> on the end of the address. It is not linked from the menu.</p>
+      <div id="check"></div>
+    </section>
+  </main>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.27.0/plotly.min.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

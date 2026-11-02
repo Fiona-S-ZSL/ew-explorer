@@ -1,0 +1,229 @@
+/* styles.css - Extinct in the Wild species explorer (static version).
+   Ported from the Shiny app's www/styles.css; no framework required. */
+
+:root {
+  --ew-teal:   #006272;
+  --ew-teal-2: #00879b;
+  --ew-deep:   #003b46;
+  --ew-sand:   #f5f1e9;
+  --ew-amber:  #e8a13a;
+  --ew-coral:  #b5462f;
+  --ew-ink:    #1d2b2e;
+  --ew-muted:  #5b6b6e;
+  --ew-line:   rgba(0, 59, 70, 0.10);
+  --ew-radius: 14px;
+  --ew-shadow: 0 6px 22px rgba(0, 59, 70, 0.10);
+  --ew-shadow-hover: 0 12px 34px rgba(0, 59, 70, 0.18);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ew-ink);
+  background:
+    radial-gradient(1200px 480px at 85% -8%, rgba(0, 135, 155, 0.10), transparent 60%),
+    radial-gradient(900px 420px at -5% 0%, rgba(232, 161, 58, 0.08), transparent 55%),
+    var(--ew-sand);
+}
+#ew-app { max-width: 1280px; margin: 0 auto; padding: 0 16px 32px; }
+h1, h2, h3, h4, h5 { font-family: 'Fraunces', Georgia, 'Times New Roman', serif; letter-spacing: -0.01em; margin: 0 0 .4rem; }
+a { color: var(--ew-teal); }
+code { background: rgba(0,0,0,.06); padding: 0 .3em; border-radius: 4px; }
+[hidden] { display: none !important; }
+
+.ew-muted { color: var(--ew-muted); }
+.ew-small { font-size: .85rem; }
+.ew-title { font-weight: 600; margin-top: .8rem; }
+
+/* ---- Top navigation -------------------------------------------------- */
+.ew-nav {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px;
+  margin: 12px 0 16px; padding: 8px 12px;
+  background: linear-gradient(100deg, var(--ew-deep) 0%, var(--ew-teal) 60%, var(--ew-teal-2) 100%);
+  border-radius: var(--ew-radius);
+  box-shadow: 0 2px 18px rgba(0, 59, 70, 0.28);
+}
+.ew-tab {
+  appearance: none; border: 0; cursor: pointer; font: inherit; font-weight: 500;
+  color: rgba(255,255,255,.85); background: transparent;
+  padding: .45rem .9rem; border-radius: 8px;
+  transition: background-color .18s ease, color .18s ease;
+}
+.ew-tab:hover { color: #fff; background: rgba(255,255,255,.12); }
+.ew-tab.active { color: #fff; background: rgba(255,255,255,.18); box-shadow: inset 0 -2px 0 var(--ew-amber); }
+.ew-spacer { flex: 1; }
+.ew-link { color: rgba(255,255,255,.9); text-decoration: none; font-weight: 500; padding: .45rem .7rem; border-radius: 8px; }
+.ew-link:hover { background: rgba(255,255,255,.12); color: #fff; }
+
+/* ---- Notices --------------------------------------------------------- */
+.ew-notice { background: #fff4de; border: 1px solid #f0cf8e; color: #6b4a06; padding: .6rem .9rem; border-radius: 10px; margin-bottom: 1rem; font-size: .9rem; }
+.ew-loading { text-align: center; padding: 3rem 0; color: var(--ew-muted); }
+
+/* ---- Panels ---------------------------------------------------------- */
+.ew-panel { display: none; animation: ewFade .35s ease both; }
+.ew-panel.active { display: block; }
+@keyframes ewFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* ---- Hero ------------------------------------------------------------ */
+.ew-hero {
+  border-radius: var(--ew-radius); padding: 2.2rem 2.4rem; margin-bottom: 1.4rem; color: #fff;
+  background: linear-gradient(120deg, rgba(0,59,70,.92), rgba(0,98,114,.86)), url("assets/hero.svg");
+  background-size: cover; background-position: center; box-shadow: var(--ew-shadow);
+}
+.ew-hero h1 { font-size: clamp(1.7rem, 2.6vw, 2.6rem); color: #fff; }
+.ew-hero p { max-width: 60ch; color: rgba(255,255,255,.92); margin: 0; }
+.ew-eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: .72rem; font-weight: 600; color: var(--ew-amber); margin-bottom: .6rem; }
+
+/* ---- Stat cards ------------------------------------------------------ */
+.ew-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.2rem; }
+.ew-stat {
+  display: flex; align-items: center; gap: .9rem; padding: 1rem 1.1rem; color: #fff;
+  border-radius: var(--ew-radius); box-shadow: var(--ew-shadow);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.ew-stat:hover { transform: translateY(-3px); box-shadow: var(--ew-shadow-hover); }
+.ew-stat-icon { font-size: 1.7rem; opacity: .92; width: 2.2rem; text-align: center; }
+.ew-stat-title { text-transform: uppercase; letter-spacing: .06em; font-size: .72rem; font-weight: 600; opacity: .92; }
+.ew-stat-value { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 2rem; line-height: 1.1; }
+
+/* ---- Cards ----------------------------------------------------------- */
+.ew-card {
+  background: #fff; border: 1px solid var(--ew-line); border-radius: var(--ew-radius);
+  box-shadow: var(--ew-shadow); min-width: 0;
+}
+.ew-card-head {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem;
+  padding: .8rem 1.1rem; border-bottom: 1px solid var(--ew-line);
+  font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 1.05rem; color: var(--ew-deep);
+}
+.ew-card-body { padding: 1rem 1.1rem; }
+.ew-grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; }
+.ew-split { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 1.4rem; }
+
+/* ---- Sub-tabs -------------------------------------------------------- */
+.ew-subtabs { display: flex; flex-wrap: wrap; gap: 4px; font-family: 'Inter', system-ui, sans-serif; }
+.ew-subtab {
+  appearance: none; border: 0; cursor: pointer; font: inherit; font-size: .88rem; font-weight: 600;
+  color: var(--ew-teal); background: transparent; padding: .35rem .8rem; border-radius: 999px;
+}
+.ew-subtab:hover { background: rgba(0,98,114,.08); }
+.ew-subtab.active { background: var(--ew-teal); color: #fff; }
+.ew-subpanel { display: none; }
+.ew-subpanel.active { display: block; }
+
+/* ---- Forms and buttons ----------------------------------------------- */
+.ew-label { display: block; font-weight: 600; font-size: .85rem; margin: .8rem 0 .25rem; color: var(--ew-deep); }
+.ew-input {
+  width: 100%; font: inherit; padding: .45rem .6rem; border-radius: 8px;
+  border: 1px solid rgba(0,59,70,.25); background: #fff; color: var(--ew-ink);
+}
+.ew-input:focus { outline: 2px solid rgba(0,135,155,.35); border-color: var(--ew-teal-2); }
+.ew-btn {
+  appearance: none; cursor: pointer; font: inherit; font-weight: 600; padding: .5rem 1rem;
+  border-radius: 8px; border: 1px solid var(--ew-teal); background: var(--ew-teal); color: #fff;
+  text-decoration: none; display: inline-block;
+}
+.ew-btn:hover { background: var(--ew-deep); border-color: var(--ew-deep); }
+.ew-btn-sm { padding: .3rem .7rem; font-size: .85rem; }
+.ew-btn-ghost { background: #fff; color: var(--ew-teal); }
+.ew-btn-ghost:hover { background: rgba(0,98,114,.08); color: var(--ew-deep); }
+.ew-toolbar { display: flex; gap: .5rem; margin-bottom: .6rem; }
+
+/* ---- Sidebar layout -------------------------------------------------- */
+.ew-layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 1rem; align-items: start; }
+.ew-layout-wide { grid-template-columns: 320px minmax(0, 1fr); }
+.ew-side { background: #fff; border: 1px solid var(--ew-line); border-radius: var(--ew-radius); padding: 1rem 1.1rem; box-shadow: var(--ew-shadow); }
+.ew-side h3 { font-size: 1.05rem; color: var(--ew-deep); }
+
+/* ---- Table ----------------------------------------------------------- */
+.ew-table-wrap { overflow-x: auto; }
+.ew-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.ew-table th {
+  position: sticky; top: 0; background: #fff; text-align: left; white-space: nowrap; cursor: pointer; user-select: none;
+  color: var(--ew-deep); padding: .6rem .7rem; border-bottom: 2px solid rgba(0,98,114,.25);
+}
+.ew-table th:hover { background: rgba(0,98,114,.05); }
+.ew-table th .arrow { color: var(--ew-teal-2); margin-left: .25rem; }
+.ew-table td { padding: .5rem .7rem; border-bottom: 1px solid var(--ew-line); vertical-align: top; }
+.ew-table tbody tr { cursor: pointer; }
+.ew-table tbody tr:hover { background: rgba(0,135,155,.06); }
+.ew-table td em { color: var(--ew-muted); }
+.ew-empty { padding: 2rem; text-align: center; color: var(--ew-muted); }
+
+/* ---- Tree ------------------------------------------------------------ */
+.ew-tree { max-height: 640px; overflow: auto; padding: .4rem .2rem; }
+.ew-tree details { margin-left: 1.1rem; border-left: 1px dashed rgba(0,98,114,.3); padding-left: .7rem; }
+.ew-tree > details { margin-left: 0; border-left: 0; padding-left: 0; }
+.ew-tree summary { cursor: pointer; padding: .15rem 0; font-weight: 600; color: var(--ew-deep); }
+.ew-tree summary:hover { color: var(--ew-teal-2); }
+.ew-tree .rank { font-size: .68rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ew-muted); font-weight: 500; margin-right: .4rem; }
+.ew-tree .count { font-weight: 400; color: var(--ew-muted); font-size: .85rem; margin-left: .35rem; }
+.ew-leaf {
+  display: block; margin: .2rem 0 .2rem 1.1rem; padding: .25rem .6rem; border-left: 4px solid #999; border-radius: 4px;
+  background: rgba(0,0,0,.025); cursor: pointer; text-decoration: none; color: var(--ew-ink); font-size: .9rem;
+}
+.ew-leaf:hover { background: rgba(0,135,155,.1); }
+.ew-leaf em { color: var(--ew-muted); }
+
+/* ---- Species list (map) ---------------------------------------------- */
+.ew-list { display: flex; flex-direction: column; gap: .35rem; margin-top: .4rem; }
+.ew-list a {
+  display: block; padding: .5rem .7rem; border: 1px solid var(--ew-line); border-left-width: 4px; border-radius: 8px;
+  background: #fff; text-decoration: none; color: var(--ew-ink); transition: background-color .15s ease, transform .12s ease;
+}
+.ew-list a:hover { background: var(--ew-sand); transform: translateX(2px); }
+.ew-list em { color: var(--ew-muted); font-size: .85rem; }
+
+/* ---- Pills ----------------------------------------------------------- */
+.ew-pills { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin-bottom: .8rem; }
+.ew-pill {
+  appearance: none; cursor: pointer; font: inherit; font-size: .85rem; font-weight: 600;
+  border-radius: 999px; padding: .25rem .85rem; border: 2px solid; background: #fff;
+}
+
+/* ---- Detail ---------------------------------------------------------- */
+.ew-detail-head { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin: .6rem 0 1rem; }
+.ew-detail-head h3 { margin: 0; font-size: 1.6rem; }
+.ew-badge { display: inline-block; border-radius: 999px; padding: .35em .85em; font-weight: 600; font-size: .8rem; color: #fff; letter-spacing: .02em; }
+dl.ew-dl { display: grid; grid-template-columns: minmax(110px, 38%) 1fr; gap: .25rem 1rem; margin: 0 0 .6rem; }
+dl.ew-dl dt { color: var(--ew-muted); font-weight: 600; }
+dl.ew-dl dd { margin: 0; }
+.ew-detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.ew-detail-stack > * { margin-bottom: 1rem; }
+.ew-acc { border-bottom: 1px solid var(--ew-line); }
+.ew-acc summary { cursor: pointer; font-weight: 600; color: var(--ew-deep); padding: .7rem .2rem; }
+.ew-acc[open] summary { color: var(--ew-teal); }
+.ew-acc p { margin: 0 0 .7rem; padding: 0 .2rem; }
+.ew-vboxes { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: .6rem; }
+.ew-media-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.ew-media-tile { display: block; text-decoration: none; color: var(--ew-deep); border-radius: var(--ew-radius); overflow: hidden; box-shadow: var(--ew-shadow); background: #fff; transition: transform .18s ease, box-shadow .18s ease; }
+.ew-media-tile:hover { transform: translateY(-3px); box-shadow: var(--ew-shadow-hover); }
+.ew-media-thumb { position: relative; aspect-ratio: 16 / 9; background: #000; }
+.ew-media-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ew-media-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,.18); }
+.ew-media-play span { background: var(--ew-coral); color: #fff; width: 3rem; height: 3rem; border-radius: 999px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+.ew-media-label { display: block; padding: .55rem .8rem; font-weight: 600; font-size: .85rem; color: var(--ew-teal); }
+
+/* ---- Find a species -------------------------------------------------- */
+.ew-fact { display: flex; justify-content: space-between; gap: 1rem; border-bottom: 1px solid var(--ew-line); padding: .25rem 0; }
+.ew-fact span:first-child { color: var(--ew-muted); }
+.ew-step { display: flex; align-items: stretch; }
+.ew-step-bar { width: 14px; border-radius: 8px; margin-right: 14px; flex: none; }
+.ew-step-rank { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ew-muted); }
+.ew-sub-card { border: 1px solid var(--ew-line); border-radius: var(--ew-radius); margin-top: 1rem; background: #fff; overflow: hidden; }
+.ew-sub-card > .hd { padding: .6rem 1rem; border-bottom: 1px solid var(--ew-line); font-family: 'Fraunces', Georgia, serif; font-weight: 600; color: var(--ew-deep); }
+.ew-sub-card > .bd { padding: .9rem 1rem; }
+
+.ew-plot { width: 100%; }
+
+/* ---- Responsive ------------------------------------------------------ */
+@media (max-width: 860px) {
+  .ew-layout, .ew-layout-wide, .ew-split { grid-template-columns: 1fr; }
+  .ew-hero { padding: 1.4rem 1.2rem; }
+  .ew-grid2 { grid-template-columns: 1fr; }
+  .ew-detail-grid { grid-template-columns: 1fr; }
+}
